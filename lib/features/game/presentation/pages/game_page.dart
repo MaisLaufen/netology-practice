@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netology_practice/core/domain/entities/game_settings.dart';
 import 'package:netology_practice/features/game/domain/viewmodels/game_viewmodel.dart';
-import 'package:netology_practice/features/game/presentation/widgets/mouse.dart';
+import 'package:netology_practice/features/game/presentation/widgets/mouse_widget.dart';
 import 'package:provider/provider.dart';
 
 class GameScreen extends StatelessWidget {
@@ -49,7 +49,9 @@ class GameScreen extends StatelessWidget {
                   ...viewModel.gameSession.mice.map((mouse) {
                     return MouseWidget(
                       size: mouse.size,
+                      speed: mouse.speed,
                       position: mouse.position,
+                      angle: mouse.angle,
                       onTap: () => viewModel.onMouseClick(mouse),
                     );
                   }).toList(),
