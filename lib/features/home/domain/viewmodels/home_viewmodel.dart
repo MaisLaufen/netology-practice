@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netology_practice/features/home/domain/entities/game_settings.dart';
+import 'package:netology_practice/core/domain/entities/game_settings.dart';
 
 class MainViewModel extends ChangeNotifier {
   final GameSettings _gameSettings =

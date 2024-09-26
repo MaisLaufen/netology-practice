@@ -5,6 +5,8 @@ import 'package:netology_practice/features/home/presentation/widgets/settings.da
 
 import 'package:netology_practice/features/home/domain/viewmodels/home_viewmodel.dart';
 
+import 'package:go_router/go_router.dart';
+
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,9 @@ class MainPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                // TODO: Действие при нажатии кнопки старт
+                final viewModel =
+                    Provider.of<MainViewModel>(context, listen: false);
+                context.go('/game', extra: viewModel.gameSettings);
               },
               child: Text('Старт'),
             ),
