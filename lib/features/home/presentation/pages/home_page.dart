@@ -19,7 +19,7 @@ class MainPage extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.account_balance),
             onPressed: () {
-              // TODO: Переход на страницу со счетом
+              context.go('/game_history');
             },
           ),
         ],

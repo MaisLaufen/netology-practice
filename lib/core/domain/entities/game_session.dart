@@ -10,7 +10,7 @@ part 'game_session.g.dart';
 @HiveType(typeId: 0)
 class GameSession extends HiveObject {
   @HiveField(0)
-  List<Mouse> mice;
+  int miceAmount;
 
   @HiveField(1)
   int score;
@@ -24,20 +24,24 @@ class GameSession extends HiveObject {
   @HiveField(4)
   Duration duration;
 
-  GameSession({
-    required this.mice,
-    required this.startTime,
-    this.score = 0,
-    this.totalClicks = 0,
-    this.duration = Duration.zero,
-  });
+  List<Mouse> mice;
+
+  GameSession(
+      {required this.mice,
+      required this.startTime,
+      this.score = 0,
+      this.totalClicks = 0,
+      this.duration = Duration.zero,
+      this.miceAmount = 0}); // =! 1
 
   void addMouse(Mouse mouse) {
     mice.add(mouse);
+    miceAmount++;
   }
 
   void removeMouse(Mouse mouse) {
     mice.remove(mouse);
+    miceAmount--;
   }
 
   void incrementScore() {

@@ -1,14 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:netology_practice/core/domain/cache/ilocal_storage.dart';
 import 'package:netology_practice/core/domain/entities/game_session.dart';
 import 'package:netology_practice/core/domain/entities/game_settings.dart';
+import 'package:netology_practice/core/domain/utils/service_locator.dart';
 import 'package:netology_practice/features/game/domain/entities/mouse.dart';
 import 'package:netology_practice/features/game/domain/utils/img_angle.dart';
 
 class GameViewModel extends ChangeNotifier {
   final GameSession _gameSession;
   final Size _screenSize;
+  final HiveLocalStorage _localStorage;
   late Timer _mouseMovementTimer;
   late Timer _sessionTimer;
   bool _isPaused = false;
@@ -19,7 +22,8 @@ class GameViewModel extends ChangeNotifier {
     required GameSettings settings,
     required Size screenSize,
   })  : _gameSession = GameSession(mice: [], startTime: DateTime.now()),
-        _screenSize = screenSize {
+        _screenSize = screenSize,
+        _localStorage = ServiceLocator().get<HiveLocalStorage>() {
     _initializeMice(settings);
     _startMouseMovement();
     _startSessionTimer();
@@ -110,7 +114,16 @@ class GameViewModel extends ChangeNotifier {
     _mouseMovementTimer.cancel();
     _sessionTimer.cancel();
     _gameSession.endSession();
+    _saveSession();
     notifyListeners();
+  }
+
+  Future<void> _saveSession() async {
+    await _localStorage.save(
+      key: DateTime.now().toIso8601String(),
+      value: _gameSession,
+      boxName: HiveLocalStorage.gameHistoryCache,
+    );
   }
 
   @override

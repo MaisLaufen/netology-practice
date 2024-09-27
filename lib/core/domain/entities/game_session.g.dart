@@ -17,11 +17,12 @@ class GameSessionAdapter extends TypeAdapter<GameSession> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return GameSession(
-      mice: (fields[0] as List).cast<Mouse>(),
+      mice: [],
       startTime: fields[3] as DateTime,
       score: fields[1] as int,
       totalClicks: fields[2] as int,
       duration: fields[4] as Duration,
+      miceAmount: fields[0] as int,
     );
   }
 
@@ -30,7 +31,7 @@ class GameSessionAdapter extends TypeAdapter<GameSession> {
     writer
       ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.mice)
+      ..write(obj.miceAmount)
       ..writeByte(1)
       ..write(obj.score)
       ..writeByte(2)
