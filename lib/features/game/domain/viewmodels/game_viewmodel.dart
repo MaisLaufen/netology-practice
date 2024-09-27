@@ -9,7 +9,11 @@ import 'package:netology_practice/features/game/domain/utils/img_angle.dart';
 class GameViewModel extends ChangeNotifier {
   final GameSession _gameSession;
   final Size _screenSize;
-  late Timer _timer;
+  late Timer _mouseMovementTimer;
+  late Timer _sessionTimer;
+  bool _isPaused = false;
+  DateTime? _pauseStartTime;
+  Duration _pausedDuration = Duration.zero;
 
   GameViewModel({
     required GameSettings settings,
@@ -18,9 +22,11 @@ class GameViewModel extends ChangeNotifier {
         _screenSize = screenSize {
     _initializeMice(settings);
     _startMouseMovement();
+    _startSessionTimer();
   }
 
   GameSession get gameSession => _gameSession;
+  bool get isPaused => _isPaused;
 
   void _initializeMice(GameSettings settings) {
     for (int i = 0; i < settings.miceAmount; i++) {
@@ -36,30 +42,47 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void _startMouseMovement() {
-    _timer = Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      for (var mouse in _gameSession.mice) {
-        final newPosition = _gameSession.generateRandomPosition(_screenSize);
-        updateMousePosition(mouse, newPosition);
+    _mouseMovementTimer =
+        Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      if (!_isPaused) {
+        for (var mouse in _gameSession.mice) {
+          final newPosition = _gameSession.generateRandomPosition(_screenSize);
+          updateMousePosition(mouse, newPosition);
+        }
+      }
+    });
+  }
+
+  void _startSessionTimer() {
+    _sessionTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!_isPaused) {
+        _gameSession.duration =
+            DateTime.now().difference(_gameSession.startTime) - _pausedDuration;
+        notifyListeners();
       }
     });
   }
 
   void onMouseClick(Mouse mouse) {
-    _gameSession.incrementScore();
-    _gameSession.removeMouse(mouse);
-    _gameSession.addMouse(
-      Mouse(
-        size: mouse.size,
-        speed: mouse.speed,
-        position: _gameSession.generateRandomPosition(_screenSize),
-      ),
-    );
-    notifyListeners();
+    if (!_isPaused) {
+      _gameSession.incrementScore();
+      _gameSession.removeMouse(mouse);
+      _gameSession.addMouse(
+        Mouse(
+          size: mouse.size,
+          speed: mouse.speed,
+          position: _gameSession.generateRandomPosition(_screenSize),
+        ),
+      );
+      notifyListeners();
+    }
   }
 
   void onScreenClick() {
-    _gameSession.incrementTotalClicks();
-    notifyListeners();
+    if (!_isPaused) {
+      _gameSession.incrementTotalClicks();
+      notifyListeners();
+    }
   }
 
   void updateMousePosition(Mouse mouse, Offset newPosition) {
@@ -69,9 +92,31 @@ class GameViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void pauseGame() {
+    _isPaused = true;
+    _pauseStartTime = DateTime.now();
+    notifyListeners();
+  }
+
+  void resumeGame() {
+    if (_pauseStartTime != null) {
+      _pausedDuration += DateTime.now().difference(_pauseStartTime!);
+    }
+    _isPaused = false;
+    notifyListeners();
+  }
+
+  void endGame() {
+    _mouseMovementTimer.cancel();
+    _sessionTimer.cancel();
+    _gameSession.endSession();
+    notifyListeners();
+  }
+
   @override
   void dispose() {
-    _timer.cancel();
+    _mouseMovementTimer.cancel();
+    _sessionTimer.cancel();
     super.dispose();
   }
 }
