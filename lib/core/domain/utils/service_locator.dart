@@ -1,4 +1,4 @@
-import 'package:netology_practice/core/domain/cache/ilocal_storage.dart';
+import 'package:netology_practice/core/domain/cache/hive_local_storage.dart';
 
 class ServiceLocator {
   static final ServiceLocator _instance = ServiceLocator._internal();

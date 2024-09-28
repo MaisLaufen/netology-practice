@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:netology_practice/core/domain/cache/ilocal_storage.dart';
+import 'package:hive/hive.dart';
+import 'package:netology_practice/core/domain/cache/hive_local_storage.dart';
 import 'package:netology_practice/core/domain/entities/game_session.dart';
 import 'package:netology_practice/core/domain/entities/game_settings.dart';
 import 'package:netology_practice/core/domain/utils/service_locator.dart';
@@ -119,11 +120,18 @@ class GameViewModel extends ChangeNotifier {
   }
 
   Future<void> _saveSession() async {
-    await _localStorage.save(
-      key: DateTime.now().toIso8601String(),
-      value: _gameSession,
-      boxName: HiveLocalStorage.gameHistoryCache,
-    );
+    final box = await Hive.openBox(HiveLocalStorage.gameHistoryCache);
+    try {
+      if (box.length >= 10) {
+        final oldestKey = box.keys.first;
+        await box.delete(oldestKey);
+      }
+      await box.put(DateTime.now().toIso8601String(), _gameSession);
+    } catch (_) {
+      rethrow;
+    } finally {
+      box.close();
+    }
   }
 
   @override

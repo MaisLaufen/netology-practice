@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netology_practice/core/domain/cache/ilocal_storage.dart';
+import 'package:netology_practice/core/domain/cache/hive_local_storage.dart';
 import 'package:netology_practice/core/domain/entities/game_session.dart';
 
 class GameHistoryViewmodel extends ChangeNotifier {

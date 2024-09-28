@@ -5,7 +5,7 @@ import 'package:netology_practice/core/domain/entities/game_session.dart';
 class GameSessionWidget extends StatelessWidget {
   final GameSession session;
 
-  GameSessionWidget({required this.session});
+  const GameSessionWidget({super.key, required this.session});
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +15,15 @@ class GameSessionWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Score: ${session.score}', style: TextStyle(fontSize: 18)),
-            Text('Total Clicks: ${session.totalClicks}',
+            Text('Попаданий по мышке: ${session.score}',
                 style: TextStyle(fontSize: 18)),
-            Text('Start Time: ${session.startTime}',
+            Text('Всего нажатий: ${session.totalClicks + session.score}',
                 style: TextStyle(fontSize: 18)),
-            Text('Duration: ${session.duration.inSeconds} seconds',
+            Text('Время начала: ${session.startTime}',
                 style: TextStyle(fontSize: 18)),
-            Text('Mice Count: ${session.miceAmount}',
+            Text('Продолжительность: ${session.duration.inSeconds} секунд',
+                style: TextStyle(fontSize: 18)),
+            Text('Количество мышек в игре: ${session.miceAmount}',
                 style: TextStyle(fontSize: 18)),
           ],
         ),
