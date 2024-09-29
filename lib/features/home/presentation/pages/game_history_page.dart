@@ -14,25 +14,46 @@ class GameHistoryPage extends StatelessWidget {
       create: (_) => GameHistoryViewmodel(HiveLocalStorage())..loadSessions(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Страница со счетом'),
+          title: const Text(
+            'Страница со счетом',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: const Color(0xFF353535),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () {
               context.go('/');
             },
           ),
         ),
+        backgroundColor: const Color(0xFF232323),
         body: Consumer<GameHistoryViewmodel>(
           builder: (context, viewModel, child) {
             if (viewModel.sessions.isEmpty) {
-              return const Center(child: Text('Нет сохраненных сессий'));
+              return const Center(
+                child: Text(
+                  'Нет сохраненных сессий',
+                  style: TextStyle(color: Colors.white70),
+                ),
+              );
             } else {
-              return ListView.builder(
-                itemCount: viewModel.sessions.length,
-                itemBuilder: (context, index) {
-                  final session = viewModel.sessions[index];
-                  return GameSessionWidget(session: session);
-                },
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: ListView.builder(
+                  itemCount: viewModel.sessions.length,
+                  itemBuilder: (context, index) {
+                    final session = viewModel.sessions[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: EndedSessionWidget(session: session),
+                    );
+                  },
+                ),
               );
             }
           },

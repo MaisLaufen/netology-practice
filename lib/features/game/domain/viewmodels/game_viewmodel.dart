@@ -5,14 +5,12 @@ import 'package:hive/hive.dart';
 import 'package:netology_practice/core/domain/cache/hive_local_storage.dart';
 import 'package:netology_practice/core/domain/entities/game_session.dart';
 import 'package:netology_practice/core/domain/entities/game_settings.dart';
-import 'package:netology_practice/core/domain/utils/service_locator.dart';
 import 'package:netology_practice/features/game/domain/entities/mouse.dart';
 import 'package:netology_practice/features/game/domain/utils/img_angle.dart';
 
 class GameViewModel extends ChangeNotifier {
   final GameSession _gameSession;
   final Size _screenSize;
-  final HiveLocalStorage _localStorage;
   late Timer _mouseMovementTimer;
   late Timer _sessionTimer;
   bool _isPaused = false;
@@ -23,8 +21,7 @@ class GameViewModel extends ChangeNotifier {
     required GameSettings settings,
     required Size screenSize,
   })  : _gameSession = GameSession(mice: [], startTime: DateTime.now()),
-        _screenSize = screenSize,
-        _localStorage = ServiceLocator().get<HiveLocalStorage>() {
+        _screenSize = screenSize {
     _initializeMice(settings);
     _startMouseMovement();
     _startSessionTimer();

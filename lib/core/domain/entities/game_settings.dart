@@ -11,6 +11,7 @@ class GameSettings {
         _mouseSize = mouseSize,
         _mouseSpeed = mouseSpeed;
 
+  // ignore: unnecessary_getters_setters
   double get miceAmount => _miceAmount;
   int get mouseSize => _mouseSize;
   int get mouseSpeed => _mouseSpeed;

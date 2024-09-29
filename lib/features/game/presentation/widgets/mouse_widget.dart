@@ -18,6 +18,7 @@ class MouseWidget extends StatefulWidget {
       required this.onTap});
 
   @override
+  // ignore: library_private_types_in_public_api
   _MouseWidgetState createState() => _MouseWidgetState();
 }
 

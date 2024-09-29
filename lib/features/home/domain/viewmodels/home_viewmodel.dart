@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netology_practice/core/domain/entities/game_settings.dart';
 
-class MainViewModel extends ChangeNotifier {
+class HomeViewModel extends ChangeNotifier {
   final GameSettings _gameSettings =
       GameSettings(miceAmount: 1, mouseSize: 1, mouseSpeed: 1);
 

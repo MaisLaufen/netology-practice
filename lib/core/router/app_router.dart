@@ -13,7 +13,7 @@ class AppRouter {
           routes: [
             GoRoute(
               path: '/',
-              builder: (context, state) => MainPage(),
+              builder: (context, state) => const HomePage(),
             ),
             GoRoute(
               path: '/game',
@@ -24,7 +24,7 @@ class AppRouter {
             ),
             GoRoute(
               path: '/game_history',
-              builder: (context, state) => GameHistoryPage(),
+              builder: (context, state) => const GameHistoryPage(),
             ),
           ],
         );

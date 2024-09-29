@@ -10,7 +10,8 @@ class SettingsWidget extends StatelessWidget {
   final VoidCallback onIncrementSpeed;
   final VoidCallback onDecrementSpeed;
 
-  SettingsWidget({
+  const SettingsWidget({
+    super.key,
     required this.miceAmount,
     required this.mouseSize,
     required this.mouseSpeed,
@@ -24,16 +25,27 @@ class SettingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(10.0),
+        color: const Color(0xFF353535),
+        borderRadius: BorderRadius.circular(12.0),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Настройки'),
-          SizedBox(height: 20),
-          Text('Количество мышек'),
+          const Text(
+            'Настройки',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Количество мышек',
+            style: TextStyle(color: Colors.white70),
+          ),
           Slider(
             value: miceAmount,
             min: 1,
@@ -41,35 +53,49 @@ class SettingsWidget extends StatelessWidget {
             divisions: 4,
             label: miceAmount.round().toString(),
             onChanged: onSliderChanged,
+            activeColor: Colors.greenAccent,
+            inactiveColor: Colors.white24,
           ),
-          SizedBox(height: 20),
-          Text('Размер мышки'),
+          const SizedBox(height: 20),
+          const Text(
+            'Размер мышки',
+            style: TextStyle(color: Colors.white70),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.remove),
+                icon: const Icon(Icons.remove, color: Colors.white),
                 onPressed: onDecrementSize,
               ),
-              Text(mouseSize.toString()),
+              Text(
+                mouseSize.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
               IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add, color: Colors.white),
                 onPressed: onIncrementSize,
               ),
             ],
           ),
-          SizedBox(height: 20),
-          Text('Скорость мышки'),
+          const SizedBox(height: 20),
+          const Text(
+            'Скорость мышки',
+            style: TextStyle(color: Colors.white70),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.remove),
+                icon: const Icon(Icons.remove, color: Colors.white),
                 onPressed: onDecrementSpeed,
               ),
-              Text(mouseSpeed.toString()),
+              Text(
+                mouseSpeed.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
               IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add, color: Colors.white),
                 onPressed: onIncrementSpeed,
               ),
             ],

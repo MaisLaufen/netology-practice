@@ -19,8 +19,17 @@ class GameScreen extends StatelessWidget {
       create: (_) => GameViewModel(
           settings: settings, screenSize: MediaQuery.of(context).size),
       child: Scaffold(
+        backgroundColor: const Color(0xFF232323),
         appBar: AppBar(
-          title: const Text('Game Screen'),
+          title: const Text(
+            'Игра',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          backgroundColor: const Color(0xFF353535),
           actions: [
             Consumer<GameViewModel>(
               builder: (context, viewModel, child) {
@@ -28,7 +37,9 @@ class GameScreen extends StatelessWidget {
                   children: [
                     IconButton(
                       icon: Icon(
-                          viewModel.isPaused ? Icons.play_arrow : Icons.pause),
+                        viewModel.isPaused ? Icons.play_arrow : Icons.pause,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
                         if (viewModel.isPaused) {
                           viewModel.resumeGame();
@@ -39,7 +50,7 @@ class GameScreen extends StatelessWidget {
                       },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.exit_to_app),
+                      icon: const Icon(Icons.exit_to_app, color: Colors.white),
                       onPressed: () {
                         viewModel.endGame();
                         context.go('/');
