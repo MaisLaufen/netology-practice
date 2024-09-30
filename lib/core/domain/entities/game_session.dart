@@ -52,11 +52,12 @@ class GameSession extends HiveObject {
     totalClicks++;
   }
 
+  final _random = Random();
+
   Offset generateRandomPosition(Size screenSize) {
-    final random = Random();
     return Offset(
-      random.nextDouble() * screenSize.width,
-      random.nextDouble() * screenSize.height,
+      _random.nextDouble() * screenSize.width,
+      _random.nextDouble() * screenSize.height,
     );
   }
 

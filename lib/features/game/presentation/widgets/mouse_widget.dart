@@ -7,6 +7,7 @@ class MouseWidget extends StatefulWidget {
   final double speed;
   final Offset position;
   final double angle;
+  final String image;
   final VoidCallback onTap;
 
   const MouseWidget(
@@ -15,6 +16,7 @@ class MouseWidget extends StatefulWidget {
       required this.speed,
       required this.position,
       required this.angle,
+      required this.image,
       required this.onTap});
 
   @override
@@ -64,7 +66,7 @@ class _MouseWidgetState extends State<MouseWidget>
                   width: widget.size * 25,
                   height: widget.size * 25,
                   child: Image.asset(
-                    'lib/core/assets/images/mouse.jpg',
+                    widget.image,
                     fit: BoxFit.cover,
                   ),
                 ),

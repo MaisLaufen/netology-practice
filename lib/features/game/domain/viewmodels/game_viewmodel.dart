@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -16,6 +17,13 @@ class GameViewModel extends ChangeNotifier {
   bool _isPaused = false;
   DateTime? _pauseStartTime;
   Duration _pausedDuration = Duration.zero;
+  final List<String> _mouseImages = [
+    'lib/core/assets/images/mouses/mouse1.png',
+    'lib/core/assets/images/mouses/mouse2.png',
+    'lib/core/assets/images/mouses/mouse3.png',
+    'lib/core/assets/images/mouses/mouse4.png',
+    'lib/core/assets/images/mouses/mouse5.png',
+  ];
 
   GameViewModel({
     required GameSettings settings,
@@ -31,12 +39,14 @@ class GameViewModel extends ChangeNotifier {
   bool get isPaused => _isPaused;
 
   void _initializeMice(GameSettings settings) {
+    _mouseImages.shuffle();
     for (int i = 0; i < settings.miceAmount; i++) {
       _gameSession.addMouse(
         Mouse(
           size: settings.mouseSize.toDouble(),
           speed: settings.mouseSpeed.toDouble(),
           position: _gameSession.generateRandomPosition(_screenSize),
+          image: _mouseImages[i],
         ),
       );
     }
@@ -45,7 +55,7 @@ class GameViewModel extends ChangeNotifier {
 
   void _startMouseMovement() {
     _mouseMovementTimer =
-        Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        Timer.periodic(const Duration(milliseconds: 1000), (timer) {
       if (!_isPaused) {
         for (var mouse in _gameSession.mice) {
           final newPosition = _gameSession.generateRandomPosition(_screenSize);
@@ -74,6 +84,7 @@ class GameViewModel extends ChangeNotifier {
           size: mouse.size,
           speed: mouse.speed,
           position: _gameSession.generateRandomPosition(_screenSize),
+          image: mouse.image,
         ),
       );
       notifyListeners();

@@ -5,11 +5,13 @@ class Mouse {
   double speed;
   Offset position;
   double angle;
+  String image;
 
   Mouse({
     required this.size,
     required this.speed,
     required this.position,
+    required this.image,
     this.angle = 0.0,
   });
 

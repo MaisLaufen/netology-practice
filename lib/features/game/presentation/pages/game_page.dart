@@ -87,6 +87,7 @@ class GameScreen extends StatelessWidget {
                           speed: mouse.speed,
                           position: mouse.position,
                           angle: mouse.angle,
+                          image: mouse.image,
                           onTap: () => viewModel.onMouseClick(mouse),
                         );
                       }).toList(),

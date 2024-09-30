@@ -6,6 +6,6 @@ class ImageAngle {
     final dx = newPosition.dx - oldPosition.dx;
     final dy = newPosition.dy - oldPosition.dy;
     final angle = atan2(dy, dx);
-    return angle * 180 / pi; // Преобразуем радианы в градусы
+    return angle * 180 / pi - 90; // Преобразуем радианы в градусы
   }
 }
