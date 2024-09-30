@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -54,8 +53,9 @@ class GameViewModel extends ChangeNotifier {
   }
 
   void _startMouseMovement() {
-    _mouseMovementTimer =
-        Timer.periodic(const Duration(milliseconds: 1000), (timer) {
+    _mouseMovementTimer = Timer.periodic(
+        Duration(milliseconds: (1500 / _gameSession.mice.first.speed).round()),
+        (timer) {
       if (!_isPaused) {
         for (var mouse in _gameSession.mice) {
           final newPosition = _gameSession.generateRandomPosition(_screenSize);

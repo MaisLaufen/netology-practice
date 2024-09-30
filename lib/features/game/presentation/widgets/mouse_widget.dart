@@ -50,7 +50,7 @@ class _MouseWidgetState extends State<MouseWidget>
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
-      duration: Duration(milliseconds: (1000 / widget.speed).round()),
+      duration: Duration(milliseconds: (1500 / widget.speed).round()),
       left: widget.position.dx,
       top: widget.position.dy,
       child: GestureDetector(
@@ -67,7 +67,7 @@ class _MouseWidgetState extends State<MouseWidget>
                   height: widget.size * 25,
                   child: Image.asset(
                     widget.image,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
