@@ -1,16 +1,12 @@
-# netology_practice
+## Репозиторий для производственной практики от Нетологии.
 
-A new Flutter project.
+### Используемые библиотеки:
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ - #### Hive
+##### Легковесная и быстрая база данных для локального хранения данных;
+ - #### Go_router
+##### Простая навигация/маршрутизация в приложении;
+ - #### Provider
+##### Управление состоянием и внедрение зависимостей, реактивное обновление UI;
+ - #### intl
+##### Форматирование и парсинг дат;
